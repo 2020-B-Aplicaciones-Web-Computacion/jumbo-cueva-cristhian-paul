@@ -1,0 +1,44 @@
+# Levantar el ambiente: docker-compose up
+# Para reiniciar todo el ambiente: en
+# este comando es para cuando hay bugs de conexion docker-compose down -v
+version: '3.3'
+services:
+  mysql_db:
+    container_name: mysql_sigib
+    image: mysql:5.7
+    restart: always
+    environment:
+      # Nombre de la base de datos
+      MYSQL_DATABASE: 'web'
+      # Usuario de la base de datos
+      MYSQL_USER: 'web'
+      # Password de la base de dato
+      MYSQL_PASSWORD: '12345678'
+      # Password del root
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '30720:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - mysql-volume:/var/lib/mysql
+  redis_db:
+    container_name: redis_sigib
+    image: redis:latest
+    restart: always
+    ports:
+      # <Port exposed> : < Redis Port running inside container>
+      - '30626:6379'
+    expose:
+      # Opens port 6379 on the container
+      - '6379'
+    volumes:
+      - redis-volume:/data
+
+# Names our volume
+volumes:
+  mysql-volume:
+  redis-volume:
