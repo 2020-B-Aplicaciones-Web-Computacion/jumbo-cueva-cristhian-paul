@@ -1,0 +1,90 @@
+<html>
+<head>
+    <style>
+        .contenedor{
+            text-align:center;
+        }
+        .contenedor2
+        {
+            font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+            height:1000px;
+            line-height:80px;
+            border:2px solid;
+            text-align:center;
+            background: #efc781;
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: separate;
+            border-spacing: 5px;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #c3bebe;
+            padding: 8px;
+            text-align:center;
+        }
+        tr:nth-child(even) {
+            background-color: #42b5ea;
+        }
+    </style>
+</head>
+<body>
+<div class = 'contenedor2'>
+<div class = 'contenedor'>
+    <% let nombre = usuario %>
+    <% if(nombre !== undefined){ %>
+        <h1>
+            Gestión Edificios
+        </h1>
+        <% if(mensaje !== undefined){ %>
+        <p>Mensaje: <%=mensaje%></p>
+        <%}%>
+        <form action="/pais"
+              method="get">
+            <label for="busqueda">Buscar: </label>
+            <input id="busqueda" type="text" name="busqueda">
+            <button type="submit">Buscar</button>
+        </form>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th> Acciones </th>
+            </tr>
+            <% arregloPais.forEach( (objeto)=>{ %>
+                <tr>
+                    <td><%= objeto.nombre %></td>
+                    <td><%= objeto.direccion %></td>
+                    <td><%= objeto.telefono %></td>
+                    <td>
+                        <a href="/pais/editar/<%= objeto.id %>">
+                            <button>Gestión Pisos</button>
+                        </a>
+                        <a href="/pais/editar/<%= objeto.id %>">
+                            <button>Editar</button>
+                        </a>
+                        <form action="../pais/eliminarDesdeVista/<%= objeto.id %>"
+                              method="POST"
+                        >
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } ) %>
+        </table>
+        <a href="/pais/crear">
+            <button>Registrar Nuevo Edificio</button>
+        </a>
+
+        <a href="../logout">
+            <button>Cerrar sesion</button>
+        </a>
+    <% } else {%>
+        <h1>primero, inicie sesion.</h1>
+    <% } %>
+</div>
+</div>
+</body>
+</html>

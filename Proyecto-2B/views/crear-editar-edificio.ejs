@@ -1,0 +1,79 @@
+<html>
+<head>
+    <style>
+        .contenedor
+        {
+            height:100px;
+            line-height:50px;
+            border:1px solid;
+            text-align:center;
+            background: #efc781;
+        }
+        .contenedor2
+        {
+            font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+            height:1000px;
+            line-height:80px;
+            border:2px solid;
+            text-align:center;
+            background: #42b5ea;
+        }   .contenedor3
+            {
+                font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+                height:1000px;
+                line-height:80px;
+                border:2px solid;
+                text-align:center;
+                background: #7A5DD9;
+            }
+    </style>
+</head>
+<body>
+<div class="contenedor2">
+    <div class="contenedor">
+
+        <% const userName = usuario %>
+        <% if(userName !== undefined){ %>
+            <% const existeEdificio = typeof edificio != 'undefined'%>
+            <% let existeNombre = typeof nombre !== 'undefined' %>
+            <% let existeDireccion = typeof direccion !== 'undefined' %>
+            <% let existeTelefono = typeof telefono !== 'undefined' %>
+            <h1> <%= existeEdificio ? 'Editar' : 'Crear'%> Edificio</h1>
+            <% let href = existeEdificio ? "../editarDesdeVista/"+edificio.id : "../edificio/crearDesdeVista"%>
+            <%if(existeEdificio){%>
+                <% existeNombre = true %>
+                <% existeDireccion = true %>
+                <% existeTelefono = true %>
+                <% nombre = edificio.nombre %>
+                <% direccion = edificio.direccion %>
+                <% telefono = edificio.telefono %>
+            <%}%>
+
+            <% if(error !== undefined) {%>
+                <p>MENSAJE ERROR: <%= error%></p>
+
+            <% }%>
+
+            <form action="<%= href%>" method="POST">
+                <label for="nombrePais">Nombre:</label>
+                <input id="nombrePais" type="text" name="nombre" value="<%= existeNombre ? nombre : '' %>">
+                <br>
+                <label for="direccionPais">Direccion:</label>
+                <input id="direccionPais" type="text" name="direccion" value="<%= existeDireccion ? direccion : '' %>">
+                <br>
+                <label for="telefonoPais">Telefono:</label>
+                <input id="telefonoPais" type="text" name="telefono" value="<%= existeTelefono ? telefono : '' %>">
+                <br>
+                <button type="submit"><%=existeEdificio ? "editar" : "crear" %></button>
+            </form>
+
+            <form action="/edificio">
+                <button type="submit">Cancelar</button></form>
+        <% } else {%>
+            <h1>primero, inicie sesion.</h1>
+        <% } %>
+
+    </div>
+</div>
+</body>
+</html>

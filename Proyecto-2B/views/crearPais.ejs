@@ -1,0 +1,91 @@
+<html>
+<head>
+    <style>
+        .contenedor
+        {
+            height:100px;
+            line-height:50px;
+            border:1px solid;
+            text-align:center;
+            background: #efc781;
+        }
+        .contenedor2
+        {
+            font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+            height:1000px;
+            line-height:80px;
+            border:2px solid;
+            text-align:center;
+            background: #42b5ea;
+        }   .contenedor3
+            {
+                font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+                height:1000px;
+                line-height:80px;
+                border:2px solid;
+                text-align:center;
+                background: #7A5DD9;
+            }
+    </style>
+</head>
+<body>
+<div class="contenedor2">
+<div class="contenedor">
+
+    <% const userName = usuario %>
+    <% if(userName !== undefined){ %>
+        <% const existePais = typeof pais != 'undefined'%>
+        <% let existeNombre = typeof nombre !== 'undefined' %>
+        <% let existeCapital = typeof capital !== 'undefined' %>
+        <% let existePoblacion = typeof poblacion !== 'undefined' %>
+        <% let existeNumeroEstaciones = typeof numeroEstaciones !== 'undefined' %>
+        <% let existeFundacion = typeof fundacion !== 'undefined' %>
+        <h1> <%= existePais ? 'Editar' : 'Crear'%> pais</h1>
+        <% let href = existePais ? "../editarDesdeVista/"+pais.id : "../pais/crearDesdeVista"%>
+        <%if(existePais){%>
+            <% existeNombre = true %>
+            <% existeCapital = true %>
+            <% existePoblacion = true %>
+            <% existeNumeroEstaciones = true %>
+            <% existeFundacion = true %>
+            <% nombre = pais.nombre %>
+            <% capital = pais.capital %>
+            <% poblacion = pais.poblacion %>
+            <% numeroEstaciones = pais.numeroEstaciones %>
+            <% fundacion = pais.fundacion %>
+        <%}%>
+
+        <% if(error !== undefined) {%>
+            <p>MENSAJE ERROR: <%= error%></p>
+
+        <% }%>
+
+        <form action="<%= href%>" method="POST">
+            <label for="nombrePais">nombre:</label>
+            <input id="nombrePais" type="text" name="nombre" value="<%= existeNombre ? nombre : '' %>">
+            <br>
+            <label for="capitalPais">Capital:</label>
+            <input id="capitalPais" type="text" name="capital" value="<%= existeCapital ? capital : '' %>">
+            <br>
+            <label for="poblacionPais">Poblacion:</label>
+            <input id="poblacionPais" type="text" name="poblacion" value="<%= existePoblacion ? poblacion : '' %>">
+            <br>
+            <label for="numeroEstacionePais">numero de estaciones:</label>
+            <input id="numeroEstacionePais" type="text" name="numeroEstaciones" value="<%= existeNumeroEstaciones ? numeroEstaciones : '' %>">
+            <br>
+            <label for="fundacionPais">Año de fundación:</label>
+            <input id="fundacionPais" type="text" name="fundacion" value="<%= existeFundacion ? fundacion : '' %>">
+            <br>
+            <button type="submit"><%=existePais ? "editar" : "crear" %></button>
+        </form>
+
+        <form action="/pais">
+            <button type="submit">Cancelar</button></form>
+    <% } else {%>
+        <h1>primero, inicie sesion.</h1>
+    <% } %>
+
+</div>
+</div>
+</body>
+</html>

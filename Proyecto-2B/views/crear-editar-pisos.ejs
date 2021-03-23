@@ -1,0 +1,88 @@
+<html>
+<head>
+    <style>
+        .contenedor
+        {
+            height:100px;
+            line-height:50px;
+            border:1px solid;
+            text-align:center;
+            background: #efc781;
+        }
+        .contenedor2
+        {
+            font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+            height:1000px;
+            line-height:80px;
+            border:2px solid;
+            text-align:center;
+            background: #42b5ea;
+        }   .contenedor3
+            {
+                font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+                height:1000px;
+                line-height:80px;
+                border:2px solid;
+                text-align:center;
+                background: #7A5DD9;
+            }
+    </style>
+</head>
+<body>
+<div class="contenedor2">
+    <div class="contenedor">
+
+
+        <% const userName = usuario %>
+        <% const EdificioId = idEdificio %>
+
+
+        <% if(userName !== undefined){ %>
+            <% const existePiso = typeof piso != 'undefined'%>
+            <% let existeNombre = typeof nombre !== 'undefined' %>
+            <% let existeDescripcion = typeof descripcion !== 'undefined' %>
+            <% let existeN_departamentos = typeof n_departamentos !== 'undefined' %>
+            <% let existePasillo = typeof pasillo !== 'undefined' %>
+            <h1> <%= existePiso ? 'Editar' : 'Crear'%> Piso</h1>
+            <% let href = existePiso ? "../editarDesdeVista/"+piso.id : `../piso/crearDesdeVista`%>
+            <%if(existePiso){%>
+                <% existeNombre = true %>
+                <% existeDescripcion = true %>
+                <% existeN_departamentos = true %>
+                <% existePasillo = true %>
+                <% nombre = piso.nombre %>
+                <% descripcion = piso.descripcion %>
+                <% n_departamentos = piso.n_departamentos %>
+                <% pasillo = piso.pasillo %>
+            <%}%>
+
+            <% if(error !== undefined) {%>
+                <p>MENSAJE ERROR: <%= error%></p>
+
+            <% }%>
+
+            <form action="<%= href%>" method="POST">
+                <label for="nombrePais">Nombre:</label>
+                <input id="nombrePais" type="text" name="nombre" value="<%= existeNombre ? nombre : '' %>">
+                <br>
+                <label for="descripcionPais">Descripcion:</label>
+                <input id="descripcionPais" type="text" name="descripcion" value="<%= existeDescripcion ? descripcion : '' %>">
+                <br>
+                <label for="n_departamentosPais">N° departamentos:</label>
+                <input id="n_departamentosPais" type="text" name="n_departamentos" value="<%= existeN_departamentos ? n_departamentos : '' %>">
+                <br>
+                <label for="pasilloPais">Pasillo:</label>
+                <input id="pasilloPais" type="text" name="pasillo" value="<%= existePasillo ? pasillo : '' %>">
+                <br>
+                <button type="submit"><%=existePiso ? "editar" : "crear" %></button>
+            </form>
+
+            <form action="../">
+                <button type="submit">Cancelar</button></form>
+        <% } else {%>
+            <h1>primero, inicie sesion.</h1>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>
