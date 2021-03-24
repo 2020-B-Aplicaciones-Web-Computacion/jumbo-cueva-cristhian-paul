@@ -26,7 +26,7 @@ export class AppController {
     // validamos datos
     const usuario = parametrosConsulta.usuario;
     const password = parametrosConsulta.password;
-    if (usuario == 'Adrian' && password == '1234') {
+    if (usuario == 'crisjc' && password == '1234') {
       session.usuario = usuario
       return response.redirect('/edificio');
     } else {
